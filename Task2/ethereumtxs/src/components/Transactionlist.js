@@ -9,7 +9,6 @@ const TransactionList = ({ address }) => {
   const [totalPages, setTotalPages] = useState(0);
 
   const transactionsPerPage = 15;
-
   const provider = new ethers.providers.JsonRpcProvider('https://rpc.sepolia.org');
 
   useEffect(() => {
@@ -19,13 +18,17 @@ const TransactionList = ({ address }) => {
       try {
         const latestBlock = await provider.getBlockNumber();
         const fetchedTransactions = [];
+
+        // Fetch transactions from the last 10 blocks
         for (let i = latestBlock; i > latestBlock - 10; i--) {
           const block = await provider.getBlockWithTransactions(i);
-          block.transactions.forEach((tx) => {
+          for (const tx of block.transactions) {
             if (tx.from === address || tx.to === address) {
-              fetchedTransactions.push(tx);
+              // Fetch the receipt to get the gas used
+              const receipt = await provider.getTransactionReceipt(tx.hash);
+              fetchedTransactions.push({ ...tx, gasUsed: receipt.gasUsed });
             }
-          });
+          }
         }
 
         const total = fetchedTransactions.length;
