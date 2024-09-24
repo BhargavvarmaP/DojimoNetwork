@@ -1,46 +1,43 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { ethers } from 'ethers';
 
 const TransactionList = ({ address }) => {
-  const [transactions, setTransactions] = useState([]);
+  const [allTransactions, setAllTransactions] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [totalPages, setTotalPages] = useState(0);
 
   const transactionsPerPage = 15;
-  const provider = new ethers.providers.JsonRpcProvider('https://rpc.sepolia.org');
+  const apiKey = 'WKGH9PDGYNA4SHMDH3WHQ7BKKYQTP1R8BK'; 
 
   useEffect(() => {
-    const fetchTransactions = async () => {
+    const fetchAllTransactions = async () => {
       setLoading(true);
       setError(null);
+      let allFetchedTransactions = [];
       try {
-        const latestBlock = await provider.getBlockNumber();
-        const fetchedTransactions = [];
+        const response = await axios.get(
+          `https://api-sepolia.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=desc&apikey=${apiKey}`
+        );
 
-        // Fetch transactions from the last 10 blocks
-        for (let i = latestBlock; i > latestBlock - 10; i--) {
-          const block = await provider.getBlockWithTransactions(i);
-          for (const tx of block.transactions) {
-            if (tx.from === address || tx.to === address) {
-              // Fetch the receipt to get the gas used
-              const receipt = await provider.getTransactionReceipt(tx.hash);
-              fetchedTransactions.push({ ...tx, gasUsed: receipt.gasUsed });
-            }
-          }
+        const fetchedTransactions = response.data.result;
+
+        if (response.data.status === "1" && fetchedTransactions.length > 0) {
+          allFetchedTransactions = fetchedTransactions;
+          setAllTransactions(allFetchedTransactions);
+          setTotalPages(Math.ceil(allFetchedTransactions.length / transactionsPerPage));
+        } else {
+          setError('No transactions found or invalid address.');
         }
-
-        const total = fetchedTransactions.length;
-        setTotalPages(Math.ceil(total / transactionsPerPage));
-        setTransactions(fetchedTransactions);
       } catch (err) {
         setError('Failed to fetch transactions.');
       }
       setLoading(false);
     };
 
-    fetchTransactions();
+    fetchAllTransactions();
   }, [address]);
 
   const handleNextPage = () => {
@@ -55,15 +52,16 @@ const TransactionList = ({ address }) => {
     }
   };
 
-  const indexOfLastTransaction = currentPage * transactionsPerPage;
-  const indexOfFirstTransaction = indexOfLastTransaction - transactionsPerPage;
-  const currentTransactions = transactions.slice(indexOfFirstTransaction, indexOfLastTransaction);
+  const paginatedTransactions = allTransactions.slice(
+    (currentPage - 1) * transactionsPerPage,
+    currentPage * transactionsPerPage
+  );
 
   return (
     <div className="container mx-auto p-6 bg-gray-50 min-h-screen">
       <h1 className="text-3xl font-bold text-center mb-6">Sepolia Testnet Transactions</h1>
       <h2 className="text-xl font-semibold text-gray-700 text-center mb-8">Transactions for {address}</h2>
-      
+
       {loading ? (
         <p className="text-center text-gray-600">Loading transactions...</p>
       ) : error ? (
@@ -82,7 +80,7 @@ const TransactionList = ({ address }) => {
                 </tr>
               </thead>
               <tbody>
-                {currentTransactions.map((tx) => (
+                {paginatedTransactions.map((tx) => (
                   <tr key={tx.hash} className="border-t hover:bg-gray-100">
                     <td className="py-4 px-6 text-gray-700">
                       <a
@@ -97,7 +95,7 @@ const TransactionList = ({ address }) => {
                     <td className="py-4 px-6 text-gray-700">{tx.from}</td>
                     <td className="py-4 px-6 text-gray-700">{tx.to}</td>
                     <td className="py-4 px-6 text-gray-700">{ethers.utils.formatEther(tx.value)}</td>
-                    <td className="py-4 px-6 text-gray-700">{tx.gasUsed?.toString()}</td>
+                    <td className="py-4 px-6 text-gray-700">{tx.gasUsed}</td>
                   </tr>
                 ))}
               </tbody>

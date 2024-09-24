@@ -1,10 +1,13 @@
 import React from 'react';
 import { ethers } from "ethers";
-import { Box, Grid, Typography, Card, CardContent, CardMedia, Button, Container } from "@mui/material";
+import { Box, Grid, Typography, Card, CardContent, CardMedia, Button, Container, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 
 export default function MyListedItems({ marketplace, nft, account }) {
     const [loading, setLoading] = React.useState(false);
     const [collections, setCollections] = React.useState([]);
+    const [open, setOpen] = React.useState(false);
+    const [transferAddress, setTransferAddress] = React.useState("");
+    const [selectedItemId, setSelectedItemId] = React.useState(null);
 
     const loadListedItems = async () => {
         const itemCount = await marketplace.itemCount();
@@ -21,6 +24,7 @@ export default function MyListedItems({ marketplace, nft, account }) {
                 const nftData = {
                     totalPrice,
                     itemId: item.itemId,
+                    tokenId: item.tokenId,
                     seller: item.seller,
                     name: metadata.name,
                     description: metadata.description,
@@ -44,6 +48,37 @@ export default function MyListedItems({ marketplace, nft, account }) {
     const handleDelist = async (itemId) => {
         await marketplace.cancelListing(itemId);
         loadListedItems();
+    };
+
+    const handleBurn = async (tokenId) => {
+        try {
+            const tx = await nft.burn(tokenId);
+            await tx.wait();
+            loadListedItems();
+        } catch (error) {
+            console.error("Burning failed:", error);
+        }
+    };
+
+    const handleTransfer = async (tokenId, toAddress) => {
+        try {
+            const tx = await nft.transferFrom(account, toAddress, tokenId);
+            await tx.wait();
+            loadListedItems();
+        } catch (error) {
+            console.error("Transfer failed:", error);
+        }
+    };
+
+    const openTransferDialog = (itemId) => {
+        setSelectedItemId(itemId);
+        setOpen(true);
+    };
+
+    const handleTransferSubmit = () => {
+        handleTransfer(selectedItemId, transferAddress);
+        setOpen(false);
+        setTransferAddress("");
     };
 
     React.useEffect(() => {
@@ -95,6 +130,20 @@ export default function MyListedItems({ marketplace, nft, account }) {
                                                 >
                                                     Delist
                                                 </Button>
+                                                <Button
+                                                    variant="contained"
+                                                    sx={{ marginTop: "10px", backgroundColor: "#f44336", color: "white", marginLeft: "5px" }}
+                                                    onClick={() => handleBurn(item.tokenId)}
+                                                >
+                                                    Burn
+                                                </Button>
+                                                <Button
+                                                    variant="contained"
+                                                    sx={{ marginTop: "10px", backgroundColor: "#3f51b5", color: "white", marginLeft: "5px" }}
+                                                    onClick={() => openTransferDialog(item.tokenId)}
+                                                >
+                                                    Transfer
+                                                </Button>
                                             </CardContent>
                                         </Card>
                                     </Grid>
@@ -107,6 +156,27 @@ export default function MyListedItems({ marketplace, nft, account }) {
                         No assets Listed
                     </Typography>
                 )}
+
+                <Dialog open={open} onClose={() => setOpen(false)}>
+                    <DialogTitle>Transfer NFT</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            Enter the address to transfer the NFT.
+                        </DialogContentText>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            label="Recipient Address"
+                            fullWidth
+                            value={transferAddress}
+                            onChange={(e) => setTransferAddress(e.target.value)}
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => setOpen(false)}>Cancel</Button>
+                        <Button onClick={handleTransferSubmit} disabled={!ethers.utils.isAddress(transferAddress)}>Transfer</Button>
+                    </DialogActions>
+                </Dialog>
             </Container>
         </Box>
     );

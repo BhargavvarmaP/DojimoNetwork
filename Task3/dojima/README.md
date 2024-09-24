@@ -1,70 +1,102 @@
-# Getting Started with Create React App
+NFT Marketplace Application
+This project is a React-based NFT Marketplace called "wayNFT," allowing users to mint, view, add, transfer, and delete NFTs stored on IPFS. It integrates with smart contracts deployed on the Polygon Mumbai testnet using ethers.js, and features include wallet connection, smart contract interactions, and an intuitive frontend for managing NFTs.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Features
+Mint NFTs: Create and mint NFTs using an IPFS integration.
+View and Explore NFTs: Explore and manage your NFT collections.
+Transfer and Delete NFTs: Transfer ownership or delete your NFTs.
+Wallet Integration: Connect to MetaMask for seamless transactions.
+Smart Contract Interaction: Interact with deployed smart contracts using ethers.js.
+Technologies Used
+React: Frontend framework
+Ethers.js: Ethereum interaction library
+IPFS: For image and metadata storage
+Solidity: Smart contract development
+Tailwind CSS / Material-UI: For advanced styling
+React Router: For page navigation
+Smart Contracts Used
+DojimaNFT: Main NFT smart contract
+DojimaNFTFactory: Factory contract for creating NFTs
+DojimaNFTMarketplace: Marketplace contract for managing NFTs
+Prerequisites
+Node.js (v16.16.0 or above recommended)
+npm or yarn
+MetaMask browser extension
+An Ethereum wallet with Binance  testnet funds
+Getting Started
+Installation
+Clone the repository:
+bash
+Copy code
+git clone https://github.com/BhargavvarmaP/DojimoNetwork.git
+Navigate to the project directory:
+bash
+Copy code
+cd DojimaNFTMarketplace
+Install dependencies:
+bash
+Copy code
+npm install
+or
+bash
+Copy code
+yarn install
+Environment Setup
+Ensure you have MetaMask installed and set up to connect to the Polygon Mumbai testnet. Fund your wallet with test tokens from the Mumbai Faucet.
 
-## Available Scripts
+Running the Application
+Start the development server:
 
-In the project directory, you can run:
+bash
+Copy code
+npm start
+or
 
-### `npm start`
+bash
+Copy code
+yarn start
+Visit http://localhost:3000 to use the application.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Using the Application
+Connect Wallet: Click the "Connect to Wallet" button to link your MetaMask account.
+Mint NFTs: Navigate to the 'Create' page to mint a new NFT.
+Explore NFTs: View available NFTs on the 'Explore' page.
+Manage Your NFTs: Check your listed items on the 'MyListedItems' page and view your purchases on the 'MyPurchases' page.
+Folder Structure
+bash
+Copy code
+src
+├── components
+│   ├── Create.js         # Component for minting NFTs
+│   ├── Explore.js        # Component for exploring NFTs
+│   ├── Home.js           # Homepage component
+│   ├── MyListedItems.js  # Component for managing your listed NFTs
+│   ├── MyPurchases.js    # Component for viewing your purchases
+│   ├── Navbar.js         # Navigation bar
+├── ABI                   # Folder containing ABI files for smart contracts
+├── App.js                # Main entry point of the application
+└── index.js              # Application bootstrap
+Contract Details
+Marketplace Address: 0xF4A73aec5CbB0721a1Ea49B9B37D39bd6ea067fb
+Factory Address: 0xE47d750647c94D04B94952b8B31B890c8CD42572
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Deployment
+To create a production build:
 
-### `npm test`
+bash
+Copy code
+npm run build
+or
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+bash
+Copy code
+yarn build
+The optimized build will be created in the build directory.
 
-### `npm run build`
+License
+This project is licensed under the MIT License.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Acknowledgments
+ethers.js for blockchain interaction
+IPFS for decentralized storage
+Binance Testnet for testing

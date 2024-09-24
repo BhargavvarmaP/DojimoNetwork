@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+Sepolia Testnet Transactions Viewer
+This project is a React application that displays a paginated list of transactions for a given Ethereum Sepolia testnet address using ethers.js and the Etherscan API. It shows transaction details such as the transaction hash, sender, recipient, value, and gas used.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Features
+Fetches transactions for a specified Ethereum address from the Sepolia testnet.
+Displays transaction details including hash, from, to, value, and gas used.
+Pagination for easy browsing of transactions (15 transactions per page).
+Error handling for invalid or unavailable data.
+User-friendly UI with Tailwind CSS styling.
+Technologies Used
+React: Frontend framework
+Axios: For making API requests
+ethers.js: For Ethereum-related functionality
+Tailwind CSS: For styling the application
+Getting Started
+Prerequisites
+Node.js (version 16.16.0 recommended)
+npm (Node Package Manager) or yarn
+Installation
+Clone the repository:
+bash
+Copy code
+git clone https://github.com/BhargavvarmaP/DojimoNetwork.git
+Navigate to the project directory:
+bash
+Copy code
+cd sepolia-transaction-viewer
+Install the dependencies:
+bash
+Copy code
+npm install
+or
+bash
+Copy code
+yarn install
+Running the Application
+Start the React development server:
 
-## Available Scripts
+bash
+Copy code
+npm start
+or
 
-In the project directory, you can run:
+bash
+Copy code
+yarn start
+The application will be running at http://localhost:3000.
 
-### `npm start`
+Configuration
+To fetch transactions, the application uses the Etherscan API. Make sure to set your API key in the apiKey variable located in the TransactionList component file:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+js
+Copy code
+const apiKey = 'YOUR_ETHERSCAN_API_KEY';
+Usage
+The app will display a list of transactions for the provided Ethereum Sepolia testnet address.
+Use the "Previous" and "Next" buttons to navigate through pages of transactions.
+Deployment
+To build the project for production, run:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+bash
+Copy code
+npm run build
+or
 
-### `npm test`
+bash
+Copy code
+yarn build
+The build output will be generated in the build directory.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+License
+This project is licensed under the MIT License.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Acknowledgments
+Ethers.js - For interacting with the Ethereum blockchain
+Etherscan API - For fetching transaction data
+Tailwind CSS - For styling the application

@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# Dojima Stagenet Wallet
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This React application allows users to connect their MetaMask wallet to the Dojima Stagenet, retrieve their wallet address, and display the balance in DOJ tokens. The application uses `ethers.js` for interacting with the Ethereum network and supports network switching to the Dojima Stagenet.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Connect to MetaMask and retrieve wallet details
+- Automatically switch to Dojima Stagenet if not already connected
+- Display the user's wallet address and DOJ balance
+- Error handling for failed connections, network switching, and balance retrieval
 
-### `npm start`
+## Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Before you begin, ensure you have met the following requirements:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Node.js and npm installed: [Download Node.js](https://nodejs.org/)
+- MetaMask installed in your browser: [Download MetaMask](https://metamask.io/)
 
-### `npm test`
+## Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the repository:
 
-### `npm run build`
+   ```bash
+   git clone https://github.com/BhargavvarmaP/DojimoNetwork.git
+   
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Navigate to the project directory:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+bash
+Copy code
+cd dojima-stagenet-wallet
+Install the required dependencies:
 
-### `npm run eject`
+bash
+Copy code
+npm install
+Running the Application
+Start the development server:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+bash
+Copy code
+npm start
+The application will be available at http://localhost:3000.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Usage
+Open the application in your browser.
+Click the "Connect MetaMask" button.
+If not connected to the Dojima Stagenet, the app will prompt MetaMask to switch the network.
+Once connected, your wallet address and DOJ balance will be displayed.
+Network Information
+Chain ID: 187 (0xbb in hexadecimal)
+RPC URL: https://rpc-d11k.dojima.network
+Currency Symbol: DOJ
+Block Explorer: Dojima Stagenet Explorer
+Technologies Used
+React.js
+ethers.js
+Tailwind CSS
+Troubleshooting
+If the wallet connection fails, ensure MetaMask is installed and configured correctly.
+If the network switch fails, check that your MetaMask is unlocked and the correct permissions are granted.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
