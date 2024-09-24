@@ -3,6 +3,7 @@ import { Box, Stack, Button, TextField, Typography, Select, MenuItem, Paper } fr
 import { AppContext } from '../App'; // Import the context
 import { ethers } from "ethers";
 import axios from 'axios';
+import DojimaNFT from "./ABI/DojimaNFT.json";
 
 const Create = () => {
     const [collections, setCollections] = React.useState([]);
@@ -10,12 +11,13 @@ const Create = () => {
     const [collectionName, setCollectionName] = React.useState("");
     const [selectedCollection, setSelectedCollection] = React.useState("");
     const [image, setImage] = React.useState("");
+    const [nft, setnft] = React.useState("");
     const [name, setName] = React.useState("");
     const [royaltyAmount, setRoyaltyAmount] = React.useState("");
     const [description, setDescription] = React.useState("");
     const [error, setError] = React.useState("");
-    const { nft, marketplace, factory } = useContext(AppContext); // Use context
-
+    const { marketplace, factory } = useContext(AppContext); // Use context
+  
     const PINATA_API_KEY = '0348e84e7bac46bfe424';
     const PINATA_SECRET_API_KEY = 'f0b71fdfb49ab36f58121ebb8442e316d021f5919a271391f8f95fa6406944ae';
 
@@ -23,7 +25,7 @@ const Create = () => {
         // Fetch existing collections for the connected user
         const fetchCollections = async () => {
             try {
-                const userCollections = await factory.getUserCollections(); // Modify this according to your smart contract method
+                const userCollections = await factory.getDeployedNFTCollection(); // Modify this according to your smart contract method
                 if (userCollections.length > 0) {
                     setCollections(userCollections);
                     setHasCollection(true);
@@ -53,6 +55,7 @@ const Create = () => {
         }
     };
 
+    setnft(new ethers.Contract(FactoryAddress, DojimaNFT, signer));
     // Handle image upload to Pinata
     const uploadToPinata = async (e) => {
         const file = e.target.files[0];

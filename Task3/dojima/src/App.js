@@ -15,7 +15,6 @@ export const AppContext = React.createContext(); // Create context
 
 function App() {
   const [account, setAccount] = React.useState("Connect to Wallet");
-  const [nft, setNFT] = React.useState({});
   const [factory, setFactory] = React.useState({});
   const [marketplace, setMarketplace] = React.useState({});  
   const data = React.createContext({});
@@ -39,28 +38,26 @@ function App() {
     loadContracts(signer)
   }
   const loadContracts = async (signer) => {
-    const MarketplaceAddress = "0xC933E5bA31265fe459404701FA479F2776e2dAAC";
-    const FactoryAddress = "0xc3A3D1627370C107Dc4C8698fC3a1D9Bd0A9CaDD";
-    const NFTAddress = "0x4F689bAc306e1785DA5163D1CDC42D424591a720";
+    const MarketplaceAddress = "0xF4A73aec5CbB0721a1Ea49B9B37D39bd6ea067fb";
+    const FactoryAddress = "0xE47d750647c94D04B94952b8B31B890c8CD42572";
     const marketplace = new ethers.Contract(MarketplaceAddress, DojimaNFTMarketplace, signer);
     const factory = new ethers.Contract(FactoryAddress, DojimaNFTFactory, signer);
-    let nft = new ethers.Contract(NFTAddress, DojimaNFT, signer);
     setMarketplace(marketplace);
     setFactory(factory)
-    setNFT(nft);
+    
     
   }
   return (
     <div className="App">
-      <AppContext.Provider value={{ account, nft, marketplace,factory }}> {/* Use Provider */}
+      <AppContext.Provider value={{ account,marketplace,factory }}> {/* Use Provider */}
         <Navbar Connect={Connect} account={account} />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/Create" element={<Create marketplace={marketplace} factory={factory} nft={nft} account={account}/>} />
+            <Route path="/Create" element={<Create marketplace={marketplace} factory={factory} account={account}/>} />
             <Route path="/Explore" element={<Explore marketplace={marketplace}  account={account} />} />
-            <Route path="/MyListedItems" element={<MyListedItems marketplace={marketplace} nft={nft} account={account} />} />
-            <Route path="/MyPurchases" element={<MyPurchases marketplace={marketplace} nft={nft} account={account} />} />
+            <Route path="/MyListedItems" element={<MyListedItems marketplace={marketplace} account={account} />} />
+            <Route path="/MyPurchases" element={<MyPurchases marketplace={marketplace} account={account} />} />
           </Routes>
         </BrowserRouter>
       </AppContext.Provider>
